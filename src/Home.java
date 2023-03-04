@@ -16,8 +16,5 @@ public class Home {
 			RentalUnit temp = units.get(i);
 			System.out.println(temp.type);
 		}
-
-		
 	}
-
 }
