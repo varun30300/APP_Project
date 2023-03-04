@@ -1,7 +1,8 @@
 //	this.city = city;
 //	this.zipCode = zipCode;
 import java.util.*;
-public class AddAProperty {
+public class PropertyClass {
+	
 	public static RentalUnit  addAProperty(int size){
 		Scanner addAPropertySc = new Scanner(System.in);
 		String ruId = String.valueOf(size+1);
@@ -77,20 +78,20 @@ public class AddAProperty {
 		
 		// creating the Rental unit object for returning
 		if (type.equals("Condo")) {
-			Condo obj = new Condo(ruId, status, tenantId, leaseId, type, bedrooms, bathrooms, sqft, city, zipCode, unitNum, stNum, stName);
-			return (RentalUnit)obj;
+			RentalUnit obj = new Condo(ruId, status, tenantId, leaseId, type, bedrooms, bathrooms, sqft, city, zipCode, unitNum, stNum, stName);
+			return obj;
 		}
 		else if (type.equals("Apartment")) {
-			Apartment obj = new Apartment(ruId, status, tenantId, leaseId, type, bedrooms, bathrooms, sqft, city, zipCode, aptNum, stName);
-			return (RentalUnit)obj;
+			RentalUnit obj = new Apartment(ruId, status, tenantId, leaseId, type, bedrooms, bathrooms, sqft, city, zipCode, aptNum, stName);
+			return obj;
 		}
 		else if (type.equals("House")) {
-			House obj = new House(ruId, status, tenantId, leaseId, type, bedrooms, bathrooms, sqft, city, zipCode, stNum, stName);
-			return (RentalUnit)obj;
+			RentalUnit obj = new House(ruId, status, tenantId, leaseId, type, bedrooms, bathrooms, sqft, city, zipCode, stNum, stName);
+			return obj;
 		}
 		return null;
-//		units.add(new House("3","vacant","nil","nil","House","3","1","1500","Montreal","123456","07","St Mathews"));
-//		return (RentalUnit)obj;
-		
+
 	}
+
+	
 }
