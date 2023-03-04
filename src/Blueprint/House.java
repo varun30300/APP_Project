@@ -1,3 +1,5 @@
+package Blueprint;
+
 public class House extends RentalUnit{
 	String stNum, stName;
 

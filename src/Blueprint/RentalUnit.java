@@ -1,3 +1,4 @@
+package Blueprint;
 public class RentalUnit {
 	String ruId, status, tenantId, leaseId, type, bedrooms, bathroom, sqft, city, zipCode;
 

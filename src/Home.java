@@ -1,4 +1,10 @@
 import java.util.ArrayList;
+
+import Blueprint.Apartment;
+import Blueprint.Condo;
+import Blueprint.House;
+import Blueprint.RentalUnit;
+
 import java.util.*;
 
 public class Home {

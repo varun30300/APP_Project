@@ -1,6 +1,11 @@
 //	this.city = city;
 //	this.zipCode = zipCode;
 import java.util.*;
+
+import Blueprint.Apartment;
+import Blueprint.Condo;
+import Blueprint.House;
+import Blueprint.RentalUnit;
 public class PropertyClass {
 	
 	public static RentalUnit  addAProperty(int size){
