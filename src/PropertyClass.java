@@ -97,6 +97,16 @@ public class PropertyClass {
 		return null;
 
 	}
-
 	
+	public static void displayProperties(ArrayList<RentalUnit> units) {
+		for(int i=0;i<units.size();i++) {
+			System.out.println("Property ID: "+ units.get(i).getRuId());
+			System.out.println("Property Type: " + units.get(i).getType());
+			/*
+			 * if() System.out.println("Address: " + units.get(i));
+			 */
+		}
+		
+	}
 }
+//id, type, address(formated)
