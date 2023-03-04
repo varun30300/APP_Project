@@ -1,3 +1,5 @@
+package Blueprint;
+
 public class Condo extends RentalUnit{
 	String unitNum, stNum, stName;
 
