@@ -22,6 +22,7 @@ public class Home {
 			RentalUnit temp = units.get(i);
 			System.out.println(temp.type);
 		}
+
 	}
 
 	public static void main(String[] args) {
@@ -39,5 +40,4 @@ public class Home {
 		
 		mainMenu();
 	}
-
 }
