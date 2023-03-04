@@ -21,6 +21,12 @@ public class Home {
 			units.add(obj);
 			System.out.println("Property has been added !!");
 		}
+		if (mainMenuinput == 2) {
+//			RentalUnit obj = PropertyClass.displayProperties(units.size());
+//			units.add(obj);
+		}
+		
+		mainMenu();
 	}
 
 	public static void main(String[] args) {
