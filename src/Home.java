@@ -1,4 +1,10 @@
 import java.util.ArrayList;
+
+import Blueprint.Apartment;
+import Blueprint.Condo;
+import Blueprint.House;
+import Blueprint.RentalUnit;
+
 import java.util.*;
 
 public class Home {
@@ -10,17 +16,10 @@ public class Home {
 		System.out.println("1. Add a property");
 		Scanner sc = new Scanner(System.in);
 		int mainMenuinput = Integer.parseInt(sc.nextLine());
-		for(int i = 0 ; i < units.size() ; i++ ) {
-			RentalUnit temp = units.get(i);
-			System.out.println(temp.type);
-		}
 		if (mainMenuinput == 1) {
-			RentalUnit obj = AddAProperty.addAProperty(units.size());
+			RentalUnit obj = PropertyClass.addAProperty(units.size());
 			units.add(obj);
-		}
-		for(int i = 0 ; i < units.size() ; i++ ) {
-			RentalUnit temp = units.get(i);
-			System.out.println(temp.type);
+			System.out.println("Property has been added !!");
 		}
 
 	}
