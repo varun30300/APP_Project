@@ -27,6 +27,7 @@ public class Home {
 		}
 		
 		mainMenu();
+
 	}
 
 	public static void main(String[] args) {
@@ -44,5 +45,4 @@ public class Home {
 		
 		mainMenu();
 	}
-
 }
