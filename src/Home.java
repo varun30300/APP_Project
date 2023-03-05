@@ -76,16 +76,13 @@ public class Home {
 //			units.add(obj);
 		}
 		else if (mainMenuinput == 4) {
-//			RentalUnit obj = PropertyClass.displayProperties(units.size());
-//			units.add(obj);
+			PropertyClass.displayProperties(units);
 		}
 		else if (mainMenuinput == 5) {
-//			RentalUnit obj = PropertyClass.displayProperties(units.size());
-//			units.add(obj);
+			PropertyClass.displayRentedProperties(units);
 		}
 		else if (mainMenuinput == 6) {
-//			RentalUnit obj = PropertyClass.displayProperties(units.size());
-//			units.add(obj);
+			PropertyClass.displayVacantProperties(units);
 		}
 		else if (mainMenuinput == 7) {
 //			RentalUnit obj = PropertyClass.displayProperties(units.size());
