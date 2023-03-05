@@ -32,6 +32,7 @@ public class TenantClass {
 	
 	public static void displayTenant(ArrayList<Tenant> tenants) {
 		for(Tenant tenant : tenants) {
+			System.out.println("--------------------------------------------------------");
 			System.out.println("Tenant ID : " + tenant.getTenantID());
 			System.out.println("Tenant Full Name : " + tenant.getFullName());
 			System.out.println("Tenant Phone Number : " + tenant.getPhoneNumber());
@@ -39,6 +40,7 @@ public class TenantClass {
 			System.out.println("Tenant Status : " + tenant.getTenantStatus());
 			System.out.println("Tenant Rental Unit : " + tenant.getRuId());
 			System.out.println("Tenant Lease ID : " + tenant.getLeaseID());
+			System.out.println("--------------------------------------------------------");
 		}
 	}
 }
