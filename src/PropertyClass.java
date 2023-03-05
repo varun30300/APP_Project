@@ -1,6 +1,7 @@
 //	this.city = city;
 //	this.zipCode = zipCode;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import Blueprint.Apartment;
 import Blueprint.Condo;
@@ -97,6 +98,49 @@ public class PropertyClass {
 		return null;
 
 	}
-
 	
+	public static void displayProperties(ArrayList<RentalUnit> units) {
+		for(int i=0;i<units.size();i++) {
+			System.out.println("--------------------------------------------------------");
+			System.out.println("Property ID: "+ units.get(i).getRuId());
+			System.out.println("Property Type: " + units.get(i).getType());
+			if(units.get(i).getType().equals("Apartment")) {
+				Apartment apt= (Apartment)units.get(i);
+				System.out.println("Property Address: Apt No - "+apt.getAptNum()+", Street Name - "+ apt.getStName()+", city - "
+						+apt.getCity()+", zip code - "+apt.getZipCode());
+				
+			}else if(units.get(i).getType().equals("Condo")) {
+				Condo condo= (Condo)units.get(i);
+				System.out.println("Property Address: Unit No - "+condo.getUnitNum()+", Street No - "+ condo.getStNum()+", Street Name: - "+
+				condo.getStName()+", city - "
+						+condo.getCity()+", zip code - "+condo.getZipCode());
+			}else {
+				House house=(House)units.get(i);
+				System.out.println("Property Address: Street No - "+ house.getStNum()+", Street Name: - "+
+						house.getStName()+", city - "
+								+house.getCity()+", zip code - "+house.getZipCode());
+			}
+			System.out.println("Bedrooms: "+units.get(i).getBedrooms());
+			System.out.println("Bathrooms: "+units.get(i).getBathroom());
+			System.out.println("Square Feet: "+units.get(i).getSqft());
+			System.out.println("Current Status: "+units.get(i).getStatus());
+			System.out.println("--------------------------------------------------------");
+		}
+		
+	}
+
+	public static void displayRentedProperties(ArrayList<RentalUnit> units) {
+		List<RentalUnit> rentedList = units.stream()
+			    .filter(obj -> obj.getStatus().equals("rented"))
+			    .collect(Collectors.toList());
+		displayProperties((ArrayList<RentalUnit>) rentedList);
+	}
+	
+	public static void displayVacantProperties(ArrayList<RentalUnit> units) {
+		List<RentalUnit> vacantList = units.stream()
+			    .filter(obj -> obj.getStatus().equals("vacant"))
+			    .collect(Collectors.toList());
+		displayProperties((ArrayList<RentalUnit>) vacantList);
+	}
 }
+//id, type, address(formated)
