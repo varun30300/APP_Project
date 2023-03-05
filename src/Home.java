@@ -55,16 +55,37 @@ public class Home {
 	
 	public static void guestMainMenu() {
 		System.out.println("GUEST PANEL");
-		System.out.println("1. Display all Properties");
-		System.out.println("2. Interested in any Property ?");
-		System.out.println("3. Logout");
+		System.out.println("1. Display all Properties"); // done
+		System.out.println("2. Interested in any Property ?"); // done
+		System.out.println("3. Logout"); // done
 		Scanner GMMsc = new Scanner(System.in);
 		int guesttMainMenuinput = Integer.parseInt(GMMsc.nextLine());
 		if (guesttMainMenuinput == 1) {
 			PropertyClass.displayProperties(units);
 		}
-		else if (guesttMainMenuinput == 3) {
-			// to do 
+		else if (guesttMainMenuinput == 2) {
+			// to do --- return an interest object, then append it to the array list
+			System.out.print("Enter the property ID : ");
+			String interestedPID = GMMsc.nextLine();
+			System.out.println();
+			
+			System.out.print("Enter First Name : ");
+			String interestedFname = GMMsc.nextLine();
+			System.out.println();
+			
+			System.out.print("Enter Last Name : ");
+			String interestedLname = GMMsc.nextLine();
+			System.out.println();
+			
+			System.out.print("Enter Email : ");
+			String interestedEmail = GMMsc.nextLine();
+			System.out.println();
+			
+			System.out.print("Enter Phone Number : ");
+			String interestedPhNum = GMMsc.nextLine();
+			System.out.println();
+			
+			notif.add(new Interest(interestedPID,interestedFname,interestedLname,interestedEmail,interestedPhNum));
 		}
 		else if (guesttMainMenuinput == 3) {
 			signIn();
@@ -77,7 +98,7 @@ public class Home {
 		System.out.println("1. Display all Properties"); //--done
 		System.out.println("2. Display Rented Properties"); //--done
 		System.out.println("3. Display Vacant Properties"); //--done
-		System.out.println("4. Pay Rent"); //--done
+		System.out.println("4. Pay Rent");
 		System.out.println("5. Logout"); //--done
 		System.out.print("Please Select an Option : ");
 		Scanner TMMsc = new Scanner(System.in);
@@ -110,7 +131,8 @@ public class Home {
 		System.out.println("7. Display all Tenant");
 		System.out.println("8. Display all lease");
 		System.out.println("9. Display Payments Info");
-		System.out.println("10. Logout"); //--done
+		System.out.println("10. Show Notifications"); //--done
+		System.out.println("11. Logout"); //--done
 		System.out.print("Please Select an Option : ");
 		Scanner sc = new Scanner(System.in);
 		int mainMenuinput = Integer.parseInt(sc.nextLine());
@@ -149,6 +171,16 @@ public class Home {
 //			units.add(obj);
 		}
 		else if (mainMenuinput == 10) {
+			System.out.println("NOTIFICATIONS");
+			System.out.println();
+			for(int i = 0 ; i < notif.size() ; i++ ) {
+				Interest temp = notif.get(i);
+				System.out.println(temp.getFirstName() + " " +temp.getLastName() + " is interested in Property ID : " + temp.getRuID());
+				System.out.println("Their contact details are : " + temp.getPhone() + " | " + temp.getEmail());
+				System.out.println();
+			}
+		}
+		else if (mainMenuinput == 11) {
 //			RentalUnit obj = PropertyClass.displayProperties(units.size());
 //			units.add(obj);
 			signIn();
