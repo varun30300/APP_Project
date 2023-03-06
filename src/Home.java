@@ -1,10 +1,9 @@
-import java.util.ArrayList;
-
 import Blueprint.Apartment;
 import Blueprint.Condo;
 import Blueprint.Credentials;
 import Blueprint.House;
 import Blueprint.Interest;
+import Blueprint.Lease;
 import Blueprint.RentalUnit;
 import Blueprint.Tenant;
 
@@ -16,6 +15,7 @@ public class Home {
 	static ArrayList<Tenant> tenants = new ArrayList<Tenant>();
 	static ArrayList<Credentials> creds = new ArrayList<Credentials>();
 	static ArrayList<Interest> notif = new ArrayList<Interest>();
+	static ArrayList<Lease> leases = new ArrayList<Lease>();
 	
 	private static void signIn() {
 		// TODO Auto-generated method stub
@@ -98,7 +98,7 @@ public class Home {
 		System.out.println("1. Display all Properties"); //--done
 		System.out.println("2. Display Rented Properties"); //--done
 		System.out.println("3. Display Vacant Properties"); //--done
-		System.out.println("4. Pay Rent");
+		System.out.println("4. Pay Rent"); //--done
 		System.out.println("5. Logout"); //--done
 		System.out.print("Please Select an Option : ");
 		Scanner TMMsc = new Scanner(System.in);
@@ -112,6 +112,30 @@ public class Home {
 		else if (tenantMainMenuinput == 3) {
 			PropertyClass.displayVacantProperties(units);
 		}
+		else if (tenantMainMenuinput == 4) {
+			Scanner payRentSc = new Scanner(System.in);
+			
+			System.out.print("Enter your Tenant ID : ");
+			String tenID = payRentSc.nextLine();
+			System.out.println();
+			
+			System.out.print("For which month do you want to pay rent (mm/yy) : ");
+			String month = payRentSc.nextLine();
+			System.out.println();
+			
+			System.out.println("Enter your rent amount : ");
+			String rentAmt = payRentSc.nextLine();
+			System.out.println();
+			
+			for(Tenant tenant : tenants) {
+				if (tenant.getTenantID().equals(tenID)) {
+					HashMap<String, String> temp = tenant.getPayments();
+					temp.put(month, rentAmt);
+					tenant.setPayments(temp);
+					System.out.println("Rent is paid.");
+				}
+			}
+		}
 		else if (tenantMainMenuinput == 5) {
 //			RentalUnit obj = PropertyClass.displayProperties(units.size());
 //			units.add(obj);
@@ -123,14 +147,14 @@ public class Home {
 	public static void adminMainMenu() {
 		System.out.println("ADMIN PANEL");
 		System.out.println("1. Add a property"); //--done
-		System.out.println("2. Add a Tenant"); 
-		System.out.println("3. Rent a Unit"); 
+		System.out.println("2. Add a Tenant"); // --done
+		System.out.println("3. Rent a Unit"); //-done
 		System.out.println("4. Display all Properties"); //--done
 		System.out.println("5. Display Rented Properties"); //--done
 		System.out.println("6. Display Vacant Properties"); //--done
-		System.out.println("7. Display all Tenant");
-		System.out.println("8. Display all lease");
-		System.out.println("9. Display Payments Info");
+		System.out.println("7. Display all Tenant"); //--done
+		System.out.println("8. Display all lease"); //-- done
+		System.out.println("9. Display Payments Info"); //--done
 		System.out.println("10. Show Notifications"); //--done
 		System.out.println("11. Logout"); //--done
 		System.out.print("Please Select an Option : ");
@@ -142,12 +166,59 @@ public class Home {
 			System.out.println("Property has been added !!");
 		}
 		else if (mainMenuinput == 2) {
-//			RentalUnit obj = PropertyClass.displayProperties(units.size());
-//			units.add(obj);
+			Tenant obj = TenantClass.addTenant(tenants.size());
+			tenants.add(obj);
+			System.out.println("A new Tenant " + obj.getFullName() + " has been added, their Tenant ID is " + obj.getTenantID() + " ,please share this with the new tenant.");
 		}
 		else if (mainMenuinput == 3) {
-//			RentalUnit obj = PropertyClass.displayProperties(units.size());
-//			units.add(obj);
+			Scanner rentAPropSc = new Scanner(System.in);
+			
+			System.out.println("________________________________________");
+			System.out.println("Creating a new LEASE");
+			
+			System.out.print("Enter Tenant ID : ");
+			String tenID = rentAPropSc.nextLine();
+			System.out.println();
+			
+			System.out.print("Enter Property ID : ");
+			String ruID = rentAPropSc.nextLine();
+			System.out.println();
+			
+			
+			String leaseID = String.valueOf(leases.size()+1);
+			
+			System.out.print("Enter lease start date (mm/yy) : ");
+			String start = rentAPropSc.nextLine();
+			System.out.println();
+			
+			System.out.print("Enter lease end date (mm/yy) : ");
+			String end = rentAPropSc.nextLine();
+			System.out.println();
+			
+			System.out.print("Enter rent amount : ");
+			String rent = rentAPropSc.nextLine();
+			System.out.println();
+			
+			leases.add(new Lease(leaseID, ruID, tenID, start, end, rent));
+			
+			System.out.println("NEW LEASE CREATED");
+			
+			for(RentalUnit unit : units) {
+				if (unit.getRuId().equals(ruID)) {
+					unit.setStatus("rented");
+					unit.setLeaseId(leaseID);
+					unit.setTenantId(tenID);
+				}
+			}
+			
+			for(Tenant tenant : tenants) {
+				if (tenant.getRuId().equals(tenID)) {
+					tenant.setTenantStatus("active");
+					tenant.setRuId(ruID);
+					tenant.setLeaseID(leaseID);
+				}
+			}
+			
 		}
 		else if (mainMenuinput == 4) {
 			PropertyClass.displayProperties(units);
@@ -159,16 +230,36 @@ public class Home {
 			PropertyClass.displayVacantProperties(units);
 		}
 		else if (mainMenuinput == 7) {
-//			RentalUnit obj = PropertyClass.displayProperties(units.size());
-//			units.add(obj);
+			TenantClass.displayTenant(tenants);
 		}
 		else if (mainMenuinput == 8) {
-//			RentalUnit obj = PropertyClass.displayProperties(units.size());
-//			units.add(obj);
+			for(Lease lease: leases) {
+				String tenID = lease.getTenantId();
+				String name ="";
+				for (Tenant tenant : tenants) {
+					if (tenant.getTenantID().equals(tenID)) {
+						name = tenant.getFullName();
+						break;
+					}
+				}
+				System.out.println("__________________");
+				System.out.println("Lease ID :" + lease.getLeaseId());
+				System.out.println("Tenant is " + name);
+				System.out.println("Lease starts on " + lease.getStart() + " and ends on " + lease.getEnd());
+				System.out.println("Rent anount is " + lease.getRent());
+			}
 		}
 		else if (mainMenuinput == 9) {
-//			RentalUnit obj = PropertyClass.displayProperties(units.size());
-//			units.add(obj);
+			for(Tenant tenant: tenants) {
+				HashMap<String, String> temp = tenant.getPayments();
+				System.out.println("Payment info of Tenant ID : " + tenant.getTenantID());
+				 for (Map.Entry<String,String> mapElement : temp.entrySet()) {
+					 String key = mapElement.getKey();
+					 String value = mapElement.getValue();
+					 System.out.println(key + " : " + value);
+				 }
+				 System.out.println("_________________");
+			}
 		}
 		else if (mainMenuinput == 10) {
 			System.out.println("NOTIFICATIONS");
@@ -181,8 +272,6 @@ public class Home {
 			}
 		}
 		else if (mainMenuinput == 11) {
-//			RentalUnit obj = PropertyClass.displayProperties(units.size());
-//			units.add(obj);
 			signIn();
 		}
 		
