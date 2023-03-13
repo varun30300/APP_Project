@@ -9,8 +9,9 @@ public class Tenant {
 	String tenantStatus;
 	String ruId; 
 	String leaseID;
+	String password;
 
-	HashMap<String, String> payments = new HashMap<String, String>();
+	HashMap<String, String> payments = new HashMap<String, String>(); // month and amt 
 	
 	public Tenant(String tenantID, String fullName, String phoneNumber, String email, String tenantStatus, String ruId,
 			String leaseID) {
@@ -22,6 +23,7 @@ public class Tenant {
 		this.tenantStatus = tenantStatus;
 		this.ruId = ruId;
 		this.leaseID = leaseID;
+		this.password = this.tenantID + this.fullName;
 	}
 
 	public String getTenantID() {
@@ -74,6 +76,10 @@ public class Tenant {
 
 	public String getLeaseID() {
 		return leaseID;
+	}
+	
+	public String getPassword() {
+		return this.password;
 	}
 
 	public void setLeaseID(String leaseID) {

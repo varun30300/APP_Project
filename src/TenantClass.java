@@ -43,21 +43,4 @@ public class TenantClass {
 			System.out.println("--------------------------------------------------------");
 		}
 	}
-	
-	public static void payRent() {
-		Scanner payRentSc = new Scanner(System.in);
-		
-		System.out.print("Enter your Tenant ID : ");
-		String tenID = payRentSc.nextLine();
-		System.out.println();
-		
-		System.out.print("For which month do you want to pay rent (mm/yy) : ");
-		String month = payRentSc.nextLine();
-		System.out.println();
-		
-		System.out.println("Enter your rent amount : ");
-		String rentAmt = payRentSc.nextLine();
-		System.out.println();
-		
-	}
 }
