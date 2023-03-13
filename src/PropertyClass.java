@@ -124,6 +124,10 @@ public class PropertyClass {
 			System.out.println("Bathrooms: "+units.get(i).getBathroom());
 			System.out.println("Square Feet: "+units.get(i).getSqft());
 			System.out.println("Current Status: "+units.get(i).getStatus());
+			
+			if (units.get(i).getStatus().equals("rented")) {
+				System.out.println("Rented by Tenant : "+units.get(i).getTenantId());
+			}
 			System.out.println("--------------------------------------------------------");
 		}
 		

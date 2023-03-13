@@ -37,7 +37,7 @@ public class Home {
 						adminMainMenu();
 					}
 					else if (temp.getType().equals("tenant")) {
-						tenantMainMenu();
+						tenantMainMenu(temp.getTenID());
 					}
 				}
 				else {
@@ -86,6 +86,15 @@ public class Home {
 			System.out.println();
 			
 			notif.add(new Interest(interestedPID,interestedFname,interestedLname,interestedEmail,interestedPhNum));
+			
+			for (RentalUnit unit : units) {
+				if (unit.getRuId().equals(interestedPID) && unit.getStatus().equals("rented")) {
+					System.out.println("The property you are interested in is currently rented. We will send you an email when it is vacant.");
+					ArrayList<String> temp = unit.getWaitList();
+					temp.add(interestedEmail);
+					unit.setWaitList(temp);
+				}
+			}
 		}
 		else if (guesttMainMenuinput == 3) {
 			signIn();
@@ -93,7 +102,7 @@ public class Home {
 		guestMainMenu();
 	}
 	
-	public static void tenantMainMenu() {
+	public static void tenantMainMenu(String id) {
 		System.out.println("TENANT PANEL");
 		System.out.println("1. Display all Properties"); //--done
 		System.out.println("2. Display Rented Properties"); //--done
@@ -115,10 +124,6 @@ public class Home {
 		else if (tenantMainMenuinput == 4) {
 			Scanner payRentSc = new Scanner(System.in);
 			
-			System.out.print("Enter your Tenant ID : ");
-			String tenID = payRentSc.nextLine();
-			System.out.println();
-			
 			System.out.print("For which month do you want to pay rent (mm/yy) : ");
 			String month = payRentSc.nextLine();
 			System.out.println();
@@ -127,8 +132,10 @@ public class Home {
 			String rentAmt = payRentSc.nextLine();
 			System.out.println();
 			
+			
+			
 			for(Tenant tenant : tenants) {
-				if (tenant.getTenantID().equals(tenID)) {
+				if (tenant.getTenantID().equals(id)) {
 					HashMap<String, String> temp = tenant.getPayments();
 					temp.put(month, rentAmt);
 					tenant.setPayments(temp);
@@ -141,7 +148,7 @@ public class Home {
 //			units.add(obj);
 			signIn();
 		}
-		tenantMainMenu();
+		tenantMainMenu("0");
 	}
 
 	public static void adminMainMenu() {
@@ -156,7 +163,9 @@ public class Home {
 		System.out.println("8. Display all lease"); //-- done
 		System.out.println("9. Display Payments Info"); //--done
 		System.out.println("10. Show Notifications"); //--done
-		System.out.println("11. Logout"); //--done
+		System.out.println("11. Vacate a Rental Unit"); //-done
+		System.out.println("12. Check pending rents"); //-done
+		System.out.println("13. Logout"); //--done
 		System.out.print("Please Select an Option : ");
 		Scanner sc = new Scanner(System.in);
 		int mainMenuinput = Integer.parseInt(sc.nextLine());
@@ -169,6 +178,8 @@ public class Home {
 			Tenant obj = TenantClass.addTenant(tenants.size());
 			tenants.add(obj);
 			System.out.println("A new Tenant " + obj.getFullName() + " has been added, their Tenant ID is " + obj.getTenantID() + " ,please share this with the new tenant.");
+			creds.add(new Credentials("tenant", obj.getFullName(), obj.getPassword(), obj.getTenantID()));
+			System.out.println("Their credentials are : " + obj.getFullName() + " | " + obj.getPassword());
 		}
 		else if (mainMenuinput == 3) {
 			Scanner rentAPropSc = new Scanner(System.in);
@@ -202,7 +213,7 @@ public class Home {
 			leases.add(new Lease(leaseID, ruID, tenID, start, end, rent));
 			
 			System.out.println("NEW LEASE CREATED");
-			
+//			System.out.println(units.size());
 			for(RentalUnit unit : units) {
 				if (unit.getRuId().equals(ruID)) {
 					unit.setStatus("rented");
@@ -212,7 +223,7 @@ public class Home {
 			}
 			
 			for(Tenant tenant : tenants) {
-				if (tenant.getRuId().equals(tenID)) {
+				if (tenant.getTenantID().equals(tenID)) {
 					tenant.setTenantStatus("active");
 					tenant.setRuId(ruID);
 					tenant.setLeaseID(leaseID);
@@ -271,9 +282,63 @@ public class Home {
 				System.out.println();
 			}
 		}
-		else if (mainMenuinput == 11) {
+		if (mainMenuinput == 13) {
 			signIn();
 		}
+		
+		if (mainMenuinput == 12) {
+			
+			Scanner rentCheckSc = new Scanner(System.in);
+			
+			System.out.println("Enter the month and year (mm/yy) : ");
+			String check = rentCheckSc.nextLine();
+			System.out.println();
+			
+			for (Tenant tenant : tenants) {
+				if (tenant.getPayments().containsKey(check) == false) {
+					System.out.println(tenant.getFullName() + "---------- pending");
+				}
+			}
+			
+		}
+		
+		else if (mainMenuinput == 11) {
+			// reset the status ruid leaseid of the tenant living in the unit  //-done
+			// reset status tenantid and lease id of the property  // - done
+			// send email to everyone on ruId waitlist // -done
+			// reset the waitlist //-done
+			Scanner vacateSc = new Scanner(System.in);
+		
+			System.out.println("Enter the Property ID you want to vacate : ");
+			String ruID = vacateSc.nextLine();
+			String tenID = "";
+//			String leaseID = "";
+			
+			for(RentalUnit unit : units) {
+				if (unit.getRuId().equals(ruID)) {
+					tenID = unit.getTenantId();
+					unit.setTenantId("nil");
+					unit.setStatus("vacant");
+					unit.setLeaseId("nil");
+					
+					for (String email : unit.getWaitList()) {
+						System.out.println("Email Sent to " + email);
+					}
+					
+					unit.setWaitList(new ArrayList<String>());
+				}
+			}
+			
+			for (Tenant tenant :tenants) {
+				if (tenant.getTenantID().equals(tenID)) {
+					tenant.setRuId("null");
+					tenant.setTenantStatus("inactive");
+					tenant.setLeaseID("null");
+				}
+			}
+			
+		}
+		
 		
 		else {
 			
@@ -291,9 +356,9 @@ public class Home {
 		units.add(new Condo("2","vacant","nil","nil","Condo","3","1","1500","Montreal","123456","1","09","St Thiemens"));
 		units.add(new House("3","vacant","nil","nil","House","3","1","1500","Montreal","123456","07","St Mathews"));
 		
-		creds.add(new Credentials("admin","varun","1234"));
-		creds.add(new Credentials("admin","angad","4321"));
-		creds.add(new Credentials("tenant","deepthi","6789"));
+		creds.add(new Credentials("admin","varun","1234","-1"));
+		creds.add(new Credentials("admin","angad","4321","-1"));
+//		creds.add(new Credentials("tenant","deepthi","6789"));
 		
 //		units Iteration code for reference
 //		for(int i = 0 ; i < units.size() ; i++ ) {

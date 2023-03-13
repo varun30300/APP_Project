@@ -1,6 +1,9 @@
 package Blueprint;
+import java.util.ArrayList;
+
 public class RentalUnit {
 	String ruId, status, tenantId, leaseId, type, bedrooms, bathroom, sqft, city, zipCode;
+	ArrayList<String> waitList = new ArrayList<String>();
 
 	public RentalUnit(String ruId, String status, String tenantId, String leaseId, String type, String bedrooms,
 			String bathroom, String sqft, String city, String zipCode) {
@@ -91,6 +94,15 @@ public class RentalUnit {
 
 	public String getRuId() {
 		return ruId;
+	}
+	
+
+	public ArrayList<String> getWaitList() {
+		return waitList;
+	}
+
+	public void setWaitList(ArrayList<String> waitList) {
+		this.waitList = waitList;
 	}
 
 	public void setRuId(String ruId) {
