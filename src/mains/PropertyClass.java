@@ -1,3 +1,5 @@
+package mains;
+
 //	this.city = city;
 //	this.zipCode = zipCode;
 import java.util.*;
@@ -120,13 +122,13 @@ public class PropertyClass {
 						house.getStName()+", city - "
 								+house.getCity()+", zip code - "+house.getZipCode());
 			}
-			System.out.println("Bedrooms: "+units.get(i).getBedrooms());
-			System.out.println("Bathrooms: "+units.get(i).getBathroom());
-			System.out.println("Square Feet: "+units.get(i).getSqft());
-			System.out.println("Current Status: "+units.get(i).getStatus());
+			System.out.println("Bedrooms: "+unit.getBedrooms());
+			System.out.println("Bathrooms: "+unit.getBathroom());
+			System.out.println("Square Feet: "+unit.getSqft());
+			System.out.println("Current Status: "+unit.getStatus());
 			
-			if (units.get(i).getStatus().equals("rented")) {
-				System.out.println("Rented by Tenant : "+units.get(i).getTenantId());
+			if (unit.getStatus().equals("rented")) {
+				System.out.println("Rented by Tenant : "+unit.getTenantId());
 			}
 
 			System.out.println("--------------------------------------------------------");

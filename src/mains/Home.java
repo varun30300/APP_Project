@@ -1,3 +1,5 @@
+package mains;
+
 import Blueprint.Apartment;
 import Blueprint.Condo;
 import Blueprint.Credentials;

@@ -1,6 +1,11 @@
-package Blueprint;
+package tests;
+
+
 
 import org.junit.Test;
+
+import Blueprint.Apartment;
+
 import static org.junit.Assert.*;
 
 public class ApartmentTest {

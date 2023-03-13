@@ -1,5 +1,8 @@
-package Blueprint;
+package tests;
 import org.junit.Test;
+
+import Blueprint.House;
+
 import static org.junit.Assert.*;
 
 public class HouseTest {

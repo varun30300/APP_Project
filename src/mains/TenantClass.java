@@ -1,3 +1,5 @@
+package mains;
+
 import java.util.*;
 
 import Blueprint.Tenant;
